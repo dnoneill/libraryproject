@@ -32,4 +32,10 @@ def choose(request):
 		url = 'https://www.goodreads.com/book/show/%s' % id
 		books.append({'title':title, 'author':author,'image':image, 'date':date, 'url':url, 'rating':rating})
 	return render(request, 'choose.html', {'choices':books})
+
+def add(request):
+	title = request.GET.get('title')
+	author = request.GET.get('author')
+	date = request.GET.get('date')
 	
+	return HttpResponse([author,title,date])

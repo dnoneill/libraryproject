@@ -19,4 +19,5 @@ from libraryapp import views as views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^choose', views.choose, name='choose'),
+    url(r'^add', views.add, name='add'),
 ]
