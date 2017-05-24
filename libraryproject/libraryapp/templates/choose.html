@@ -1,0 +1,26 @@
+<html>
+{% for choice in choices %}
+<table>
+  <tr>
+    <th><a href="/add?title={{choice.title}}&author={{choice.author}}&pub_date={{choice.date}}"><img src="{{choice.image}}"/><a></th>
+<th>Title: <a href="{{choice.url}}">{{choice.title}}</a><br>
+Author: {{choice.author}}<br>
+Publication: {{choice.date}}<br>
+Average Rating: {{choice.rating}}<br></th>
+</tr>
+</table>
+
+{% endfor %}
+</html>
+
+<style>
+table {
+}
+
+td, th {
+    text-align: left;
+}
+
+tr:nth-child(even) {
+}
+</style>
