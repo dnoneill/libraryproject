@@ -30,12 +30,34 @@ def choose(request):
 		id = work['best_book']['id']['#text']
 		rating = work['average_rating']
 		url = 'https://www.goodreads.com/book/show/%s' % id
-		books.append({'title':title, 'author':author,'image':image, 'date':date, 'url':url, 'rating':rating})
+		books.append({'title':title, 'author':author,'image':image, 'date':date,
+		'url':url, 'rating':rating, 'id':id})
 	return render(request, 'choose.html', {'choices':books})
 
 def add(request):
-	title = request.GET.get('title')
-	author = request.GET.get('author')
-	date = request.GET.get('date')
+	id = request.GET.get('id')
+	info = requests.get("https://www.goodreads.com/book/show.xml?id=%s&key=lTxFf0cwiHnsUItGsSIX9g"%id)
+	data = xmltodict.parse(info.text)
+	info = {}
+	info['title'] = data['GoodreadsResponse']['book']['title']
+	info['isbn'] = data['GoodreadsResponse']['book']['isbn']
+	info['small_image_url'] = data['GoodreadsResponse']['book']['small_image_url']
+	info['publisher'] = data['GoodreadsResponse']['book']['publisher']
+	info['num_pages'] = data['GoodreadsResponse']['book']['num_pages']
+	info['url'] = data['GoodreadsResponse']['book']['url']
+	info['series_works'] = data['GoodreadsResponse']['book']['series_works']
+	info['year'] = data['GoodreadsResponse']['book']['publication_year']
+	info['day'] = data['GoodreadsResponse']['book']['publication_day']
+	info['month'] = data['GoodreadsResponse']['book']['publication_month']
+	info['description'] = data['GoodreadsResponse']['book']['description']
+	print(data['GoodreadsResponse']['book'].keys())
 	
-	return HttpResponse([author,title,date])
+	return render(request, 'add.html', {'info':info})
+	
+	['id', 'title', 'isbn', 'isbn13', 'asin', 'kindle_asin', 'marketplace_id', 
+	'country_code', 'image_url', 'small_image_url', 'publication_year', 
+	'publication_month', 'publication_day', 'publisher', 'language_code', 
+	'is_ebook', 'description', 'work', 'average_rating', 'num_pages', 'format', 
+	'edition_information', 'ratings_count', 'text_reviews_count', 'url', 'link', 
+	'authors', 'reviews_widget', 
+	'popular_shelves', 'book_links', 'buy_links', 'series_works', 'similar_books']
