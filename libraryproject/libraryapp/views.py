@@ -28,7 +28,10 @@ def choose(request):
 			day = work['original_publication_day']['@nil']
 		date = "%s/%s/%s" % (month, day, year)
 		id = work['best_book']['id']['#text']
-		rating = work['average_rating']
+		try:
+			rating = work['average_rating']['#text']
+		except:
+			rating = work['average_rating']
 		url = 'https://www.goodreads.com/book/show/%s' % id
 		books.append({'title':title, 'author':author,'image':image, 'date':date,
 		'url':url, 'rating':rating, 'id':id})
@@ -50,7 +53,6 @@ def add(request):
 	info['day'] = data['GoodreadsResponse']['book']['publication_day']
 	info['month'] = data['GoodreadsResponse']['book']['publication_month']
 	info['description'] = data['GoodreadsResponse']['book']['description']
-	print(data['GoodreadsResponse']['book'].keys())
 	
 	return render(request, 'add.html', {'info':info})
 	
