@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 MONTHS = (
+	(0, "unavaliable"),
     (1, "January"),
     (2, "February"),
     (3, "March"),
@@ -25,9 +26,9 @@ class Book(models.Model):
 	rating = models.CharField(max_length=256)
 	url = models.URLField(max_length=200, null=True, blank=True)
 	id = models.CharField(primary_key= True, max_length=256)
-	month = models.IntegerField(choices=MONTHS)
-	day = models.IntegerField()
-	year = models.IntegerField()
+	month = models.IntegerField(choices=MONTHS, default=0)
+	day = models.IntegerField(default=0)
+	year = models.IntegerField(default=0)
 
 	@property
 	def date(self):
