@@ -4,7 +4,9 @@ import xmltodict, json
 
 # Create your views here.
 import requests
-
+def home(request):
+	return render(request, 'home.html')
+	
 def choose(request):
 	query = request.GET.get('q')
 	data = requests.get("https://www.goodreads.com/search/index.xml?key=lTxFf0cwiHnsUItGsSIX9g&q=%s"%query)
