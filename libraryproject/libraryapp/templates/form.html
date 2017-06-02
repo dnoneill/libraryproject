@@ -1,0 +1,20 @@
+<form action="/post" method="post">
+    {% csrf_token %}
+    <label for="lender">Lender: </label>
+    <input id="lender" type="text" name="lender" value=""><br>
+    <label for="lendee">Reciever: </label>
+    <input id="lendee" type="text" name="lendee" value=""><br>
+    <label for="title">Title: </label>
+    <input id="title" type="text" name="title" value="{{ info.title }}"><br>
+    <label for="author">Author: </label>
+    <input id="author" type="author" name="author" value="{{info.author}}"><br>
+    <label for="isbn">ISBN: </label>
+    <input id="isbn" type="isbn" name="isbn" value="{{info.isbn}}"><br>
+    <label for="publisher">Publisher: </label>
+    <input id="publisher" type="publisher" name="publisher" value="{{info.publisher}}"><br>
+    <label for="num_pages">Pages: </label>
+    <input id="num_pages" type="num_pages" name="num_pages" value="{{info.num_pages}}"><br>
+    
+    <input type="submit" value="Submit">
+</form>
+	

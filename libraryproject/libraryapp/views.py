@@ -35,13 +35,26 @@ def choose(request):
 		books.append({'title':title, 'author':author,'image':image, 'date':date,
 		'url':url, 'rating':rating, 'id':id})
 	return render(request, 'choose.html', {'choices':books})
+def post(self, request, *args, **kwargs):
+    form = self.get_form()
+    if form.is_valid():
+        return self.form_valid(form)
+    else:
+        return self.form_invalid(form)
 
+def form_valid(self, form):
+        book = Book()
+        book.title = form.cleaned_data['title']
+        book.author = form.cleaned_data['author']
+        book.save()
+        return form_valid(form)
 def add(request):
 	id = request.GET.get('id')
 	info = requests.get("https://www.goodreads.com/book/show.xml?id=%s&key=lTxFf0cwiHnsUItGsSIX9g"%id)
 	data = xmltodict.parse(info.text)
 	info = {}
 	info['title'] = data['GoodreadsResponse']['book']['title']
+	info['author'] = data['GoodreadsResponse']['book']['authors']['author']['name']
 	info['isbn'] = data['GoodreadsResponse']['book']['isbn']
 	info['small_image_url'] = data['GoodreadsResponse']['book']['small_image_url']
 	info['publisher'] = data['GoodreadsResponse']['book']['publisher']
@@ -54,7 +67,7 @@ def add(request):
 	info['description'] = data['GoodreadsResponse']['book']['description']
 	print(data['GoodreadsResponse']['book'].keys())
 	
-	return render(request, 'add.html', {'info':info})
+	return render(request, 'form.html', {'info':info})
 	
 	['id', 'title', 'isbn', 'isbn13', 'asin', 'kindle_asin', 'marketplace_id', 
 	'country_code', 'image_url', 'small_image_url', 'publication_year', 

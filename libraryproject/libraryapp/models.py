@@ -1,6 +1,19 @@
 from django.db import models
 import uuid
-
+MONTHS = (
+    (1, "January"),
+    (2, "February"),
+    (3, "March"),
+    (4, "April"),
+    (5, "May"),
+    (6, "June"),
+    (7, "July"),
+    (8, "August"),
+    (9, "September"),
+    (10, "October"),
+    (11, "November"),
+    (12, "December")
+    )
 # Create your models here.
 
 class Book(models.Model):
@@ -12,6 +25,16 @@ class Book(models.Model):
 	rating = models.CharField(max_length=256)
 	url = models.URLField(max_length=200, null=True, blank=True)
 	id = models.CharField(primary_key= True, max_length=256)
+	month = models.IntegerField(choices=MONTHS)
+	day = models.IntegerField()
+	year = models.IntegerField()
+
+	@property
+	def date(self):
+		if self.day == 88:
+			return "No Date Avaliable"
+		else:
+			return "{} {}, {}".format(self.get_Month_display(), self.Day, self.Year)
 
 class Loans(models.Model):
 
