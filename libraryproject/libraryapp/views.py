@@ -55,7 +55,12 @@ def add(request):
 	data = xmltodict.parse(info.text)
 	info = {}
 	info['title'] = data['GoodreadsResponse']['book']['title']
-	info['author'] = data['GoodreadsResponse']['book']['authors']['author']['name']
+	try:
+		info['author'] = data['GoodreadsResponse']['book']['authors']['author']['name']
+		info['author_id'] = data['GoodreadsResponse']['book']['authors']['author']['id']
+	except:
+		info['author'] = data['GoodreadsResponse']['book']['authors']['author'][0]['name']
+		info['author_id'] = data['GoodreadsResponse']['book']['authors']['author'][0]['id']
 	info['isbn'] = data['GoodreadsResponse']['book']['isbn']
 	info['small_image_url'] = data['GoodreadsResponse']['book']['small_image_url']
 	info['publisher'] = data['GoodreadsResponse']['book']['publisher']
