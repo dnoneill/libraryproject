@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import xmltodict, json
-
+from .forms import BookForm
+from .models import Book
 # Create your views here.
 import requests
-
+def home(request):
+	return render(request, 'home.html')
+	
 def choose(request):
 	query = request.GET.get('q')
 	data = requests.get("https://www.goodreads.com/search/index.xml?key=lTxFf0cwiHnsUItGsSIX9g&q=%s"%query)
@@ -36,19 +39,6 @@ def choose(request):
 		books.append({'title':title, 'author':author,'image':image, 'date':date,
 		'url':url, 'rating':rating, 'id':id})
 	return render(request, 'choose.html', {'choices':books})
-def post(self, request, *args, **kwargs):
-    form = self.get_form()
-    if form.is_valid():
-        return self.form_valid(form)
-    else:
-        return self.form_invalid(form)
-
-def form_valid(self, form):
-        book = Book()
-        book.title = form.cleaned_data['title']
-        book.author = form.cleaned_data['author']
-        book.save()
-        return form_valid(form)
 def add(request):
 	id = request.GET.get('id')
 	info = requests.get("https://www.goodreads.com/book/show.xml?id=%s&key=lTxFf0cwiHnsUItGsSIX9g"%id)
@@ -71,9 +61,35 @@ def add(request):
 	info['day'] = data['GoodreadsResponse']['book']['publication_day']
 	info['month'] = data['GoodreadsResponse']['book']['publication_month']
 	info['description'] = data['GoodreadsResponse']['book']['description']
+<<<<<<< HEAD
 	
+=======
+>>>>>>> f196c7f3091a1bc705f56e742de08d0945e93329
 	return render(request, 'form.html', {'info':info})
 	
+def lend(request):
+	def post(self, request, *args, **kwargs):
+		form = self.get_form()
+		if form.is_valid():
+		    return self.form_valid(form)
+		else:
+		    return self.form_invalid(form)
+
+	def form_valid(self, form):
+		book = Book()
+		book.title = form.cleaned_data['title']
+		book.author = form.cleaned_data['author']
+		book.image = info['small_image_url']
+		book.url = info['url']
+		book.month = info['month']
+		book.day = info['day']
+		book.year = info['year']
+		book.save()
+		book.save()
+		return HttpResponse("SUCCESS")
+	def get_success_url(self):
+		return HttpResponse("success")
+
 	['id', 'title', 'isbn', 'isbn13', 'asin', 'kindle_asin', 'marketplace_id', 
 	'country_code', 'image_url', 'small_image_url', 'publication_year', 
 	'publication_month', 'publication_day', 'publisher', 'language_code', 
