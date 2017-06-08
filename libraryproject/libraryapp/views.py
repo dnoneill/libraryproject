@@ -61,10 +61,7 @@ def add(request):
 	info['day'] = data['GoodreadsResponse']['book']['publication_day']
 	info['month'] = data['GoodreadsResponse']['book']['publication_month']
 	info['description'] = data['GoodreadsResponse']['book']['description']
-<<<<<<< HEAD
-	
-=======
->>>>>>> f196c7f3091a1bc705f56e742de08d0945e93329
+
 	return render(request, 'form.html', {'info':info})
 	
 def lend(request):
