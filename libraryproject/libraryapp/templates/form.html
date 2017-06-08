@@ -1,3 +1,4 @@
+
 <form action="/lend" method="post">
     {% csrf_token %}
     <label for="lender">Lender: </label>
@@ -20,8 +21,10 @@
     <input id="url" type="url" name="url" value="{{info.url}}"><br>
     <label for="image_url">Image URL: </label>
     <input id="image_url" type="image_url" name="image_url" value="{{info.small_image_url}}"><br>
-    <label for="series_works">Books in Series: </label>
-    <input id="series_works" type="series_works" name="series_works" value="{{info.series_works}}"><br>
+    <label for="series_title">Series Title: </label>
+    <input id="series_title" type="series_title" name="series_title" value="{{info.series_title}}"><br>
+    <label for="series_id">Series ID: </label>
+    <input id="series_id" type="series_id" name="series_id" value="{{info.series_id}}"><br>
     <label for="year">Publication Year: </label>
     <input id="year" type="year" name="year" value="{{info.year}}"><br>
     <label for="day">Publication Day: </label>
@@ -32,4 +35,3 @@
     <input id="description" type="description" name="description" value="{{info.description}}"><br>
     <input type="submit" value="Submit">
 </form>
-	
