@@ -1,0 +1,56 @@
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <h1><img src="{{loans.book.small_image_url}}"/>{{loans.book.title}}</h1>
+  </div>
+  <div class="row">
+    
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">Details</div>
+        <div class="panel-body">
+          <dl class="dl-horizontal">
+          	<dt>Lender</dt>
+            <dd>{{loans.borrowed_from}}</a></dd>
+            
+            <dt>Lendee</dt>
+            <dd>{{loans.borrower}}</a></dd>
+            
+            <dt>Date Lent</dt>
+            <dd>{{loans.date_created}}</a></dd>
+
+            <dt>Author</dt>
+            <dd>{{loans.book.author}}</a></dd>
+        	
+        	<dt>Description</dt>
+        	{% autoescape off %}
+            <dd>{{loans.book.description}}</a></dd>
+            {% endautoescape %}
+            <dt>Published</dt>
+            <dd>{{loans.book.date}}</dd>
+        
+            <dt>ISBN</dt>
+            <dd>{{loans.book.isbn}}</dd>
+            
+            <dt>Publisher</dt>
+            <dd>{{loans.book.publisher}}</dd>
+            
+            <dt>Pages</dt>
+            <dd>{{loans.book.num_pages}}</dd>
+            
+            <dt>Series</dt>
+            {% autoescape off %}
+            <dd>{{loans.book.series}}</a></dd>
+            {% endautoescape %}
+            
+            <dt>Pages</dt>
+            <dd>{{loans.book.num_pages}}</dd>
+            
+            <dt>Goodreads URL</dt>
+            <dd><a href="{{loans.book.url}}">{{loans.book.url}}</a></dd>
+            
+          </dl>
+        </div>
+      </div>
+    </div>
+{% endblock %}
