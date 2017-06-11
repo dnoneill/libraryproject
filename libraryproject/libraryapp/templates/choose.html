@@ -1,5 +1,6 @@
 <html>
 <head>
+<title>Search: {{ request.GET.q }}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -10,7 +11,7 @@
   <tr>
     <th>
 <div class="wrapper"><a href="/add?id={{choice.id}}"><img src="{{choice.image}}"/><span class="glyphicon glyphicon-plus">Add</span><a></div></th>
-<th>Title: <a href="{{choice.url}}">{{choice.title}}</a><br>
+<th>Title: <a href="{{choice.url}}" target="_blank">{{choice.title}}</a><br>
 Author: {{choice.author}}<br>
 Publication: {{choice.date}}<br>
 Average Rating: {{choice.rating}}<br></th>

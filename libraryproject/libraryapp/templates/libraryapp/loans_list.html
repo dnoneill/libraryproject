@@ -1,0 +1,30 @@
+<title>Loans List</title>
+   <div class="row">
+    <br>      
+
+    <table class="table">
+      <tr>
+      	<th></th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Lender</th>
+        <th>Lendee</th>
+        <th>Date Created</th>
+        <th>Loan Length</th>
+      </tr>
+      {% if object_list %}
+        {% for loan in object_list %}
+        <tr>
+          <td><img src="{{loan.book.small_image_url}}"/></td>
+          <td><a href="/loans/{{loan.id}}">{{loan.book.title}}</a></td>
+          <td>{{loan.book.author}}</td>
+          <td>{{loan.borrowed_from}}</td>
+          <td>{{loan.borrower}}</td>
+          <td>{{loan.date_created}}</td>
+          <td>{{loan.timesince}}</td>
+        </tr>
+        {% endfor %}
+      {% endif %}
+    </table>
+  </div>
+</div>

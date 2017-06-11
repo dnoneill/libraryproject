@@ -1,0 +1,40 @@
+<title>{{book.title}} | Details</title>
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <h1><img src="{{book.small_image_url}}"/>{{book.title}}</h1>
+  </div>
+  <div class="row">
+    
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">Details</div>
+        <div class="panel-body">
+          <dl class="dl-horizontal">
+            <dt>Author</dt>
+            <dd>{{book.author}}</a></dd>
+        	
+        	<dt>Description</dt>
+        	{% autoescape off %}
+            <dd>{{book.description}}</a></dd>
+            {% endautoescape %}
+            <dt>Published</dt>
+            <dd>{{book.date}}</dd>
+        
+            <dt>ISBN</dt>
+            <dd>{{book.isbn}}</dd>
+            
+            <dt>Publisher</dt>
+            <dd>{{book.publisher}}</dd>
+            
+            <dt>Pages</dt>
+            <dd>{{book.num_pages}}</dd>
+                    
+            <dt>Goodreads URL</dt>
+            <dd><a href="{{book.url}}">{{book.url}}</a></dd>
+            
+          </dl>
+        </div>
+      </div>
+    </div>
+{% endblock %}

@@ -16,8 +16,16 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from libraryapp import views as views
+from libraryapp.views import LoansList, BookList, LoansDetail, BookDetail
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^choose', views.choose, name='choose'),
+    url(r'^$', views.home, name='home'),
     url(r'^add', views.add, name='add'),
+    url(r'^lend', views.lend, name='lend'),
+    url(r'^books/$', BookList.as_view(), name='book_list'),
+    url(r'^loans/$', LoansList.as_view(), name='loans_list'),
+    url(r'^books/(?P<pk>\d+)$', BookDetail.as_view(), name='book_detail'),
+    url(r'^loans/(?P<pk>\d+)$', LoansDetail.as_view(), name='loans_detail'),
 ]

@@ -1,0 +1,25 @@
+<title>Book List</title>
+  <div class="row">
+    <br>
+    <table class="table">
+      <tr>
+      	<th></th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Published</th>
+        <th>Pages</th>
+      </tr>
+      {% if object_list %}
+        {% for book in object_list %}
+        <tr>
+          <td><img src="{{book.small_image_url}}"/><a></div></a></td>
+          <td><a href="/books/{{book.id}}">{{book.title}}</a></td>
+          <td>{{book.author}}</a></td>
+          <td>{{book.date}}</td>
+          <td>{{book.num_pages}}</td>
+        </tr>
+        {% endfor %}
+      {% endif %}
+    </table>
+  </div>
+</div>
