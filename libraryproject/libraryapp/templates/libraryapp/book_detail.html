@@ -1,3 +1,4 @@
+<title>{{book.title}} | Details</title>
 {% block content %}
 <div class="container">
   <div class="jumbotron">
@@ -28,15 +29,7 @@
             
             <dt>Pages</dt>
             <dd>{{book.num_pages}}</dd>
-            
-            <dt>Series</dt>
-            {% autoescape off %}
-            <dd>{{book.series}}</a></dd>
-            {% endautoescape %}
-            
-            <dt>Pages</dt>
-            <dd>{{book.num_pages}}</dd>
-            
+                    
             <dt>Goodreads URL</dt>
             <dd><a href="{{book.url}}">{{book.url}}</a></dd>
             

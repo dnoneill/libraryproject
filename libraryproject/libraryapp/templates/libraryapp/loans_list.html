@@ -1,5 +1,7 @@
- <div class="row">
-    <br>
+<title>Loans List</title>
+   <div class="row">
+    <br>      
+
     <table class="table">
       <tr>
       	<th></th>
@@ -8,6 +10,7 @@
         <th>Lender</th>
         <th>Lendee</th>
         <th>Date Created</th>
+        <th>Loan Length</th>
       </tr>
       {% if object_list %}
         {% for loan in object_list %}
@@ -18,6 +21,7 @@
           <td>{{loan.borrowed_from}}</td>
           <td>{{loan.borrower}}</td>
           <td>{{loan.date_created}}</td>
+          <td>{{loan.timesince}}</td>
         </tr>
         {% endfor %}
       {% endif %}

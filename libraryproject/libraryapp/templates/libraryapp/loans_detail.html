@@ -1,3 +1,4 @@
+<title> {{loans.book.title}} | Details </title>
 {% block content %}
 <div class="container">
   <div class="jumbotron">
@@ -19,6 +20,9 @@
             <dt>Date Lent</dt>
             <dd>{{loans.date_created}}</a></dd>
 
+			<dt>Loan Length</dt>
+            <dd>{{loans.timesince}}</a></dd>
+            
             <dt>Author</dt>
             <dd>{{loans.book.author}}</a></dd>
         	
@@ -38,13 +42,6 @@
             <dt>Pages</dt>
             <dd>{{loans.book.num_pages}}</dd>
             
-            <dt>Series</dt>
-            {% autoescape off %}
-            <dd>{{loans.book.series}}</a></dd>
-            {% endautoescape %}
-            
-            <dt>Pages</dt>
-            <dd>{{loans.book.num_pages}}</dd>
             
             <dt>Goodreads URL</dt>
             <dd><a href="{{loans.book.url}}">{{loans.book.url}}</a></dd>
