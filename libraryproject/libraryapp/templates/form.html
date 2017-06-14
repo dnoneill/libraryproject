@@ -1,40 +1,14 @@
 <html>
 <title>Add {{info.title}}</title>
-<form action="/lend/" method="post">
+<form action="/loans/" method="post">
     {% csrf_token %}
-    <label for="lender">Lender: </label>
-    <input id="lender" type="text" name="lender" value="" required><br>
-    <label for="lendee">Reciever: </label>
-    <input id="lendee" type="text" name="lendee" value="" required><br>
-    <label for="title">Title: </label>
-    <input id="title" type="text" name="title" value="{{ info.title }}" required><br>
-    <label for="author">Author: </label>
-    <input id="author" type="author" name="author" value="{{info.author}}"><br>
-    <label for="author_id">Author ID: </label>
-    <input id="author_id" type="author_id" name="author_id" value="{{info.author_id}}"><br>
-    <label for="isbn">ISBN: </label>
-    <input id="isbn" type="isbn" name="isbn" value="{{info.isbn}}"><br>
-    <label for="publisher">Publisher: </label>
-    <input id="publisher" type="publisher" name="publisher" value="{{info.publisher}}"><br>
-    <label for="num_pages">Pages: </label>
-    <input id="num_pages" type="num_pages" name="num_pages" value="{{info.num_pages}}"><br>
-    <label for="url">Goodreads URL: </label>
-    <input id="url" type="url" name="url" value="{{info.url}}"><br>
-    <label for="image_url">Image URL: </label>
-    <input id="image_url" type="image_url" name="image_url" value="{{info.small_image_url}}"><br>
-    <label for="year">Publication Year: </label>
-    <input id="year" type="year" name="year" value="{{info.year}}"><br>
-    <label for="day">Publication Day: </label>
-    <input id="day" type="day" name="day" value="{{info.day}}"><br>
-    <label for="month">Publication Month: </label>
-    <input id="month" type="month" name="month" value="{{info.month}}"><br>
-    <label for="description">Description </label>
-    <input id="description" type="description" name="description" value="{{info.description}}"><br>
-    <input type="submit" value="Submit">
+    {% for field in form %}
+    {{ field.label_tag }} {{field}} <br>
+   	{% endfor %}
+   	<input type="submit" value="Submit">
 </form>
 
 <style>
-:required {
-}
+input { display: inline; }
 </style>
 </html>

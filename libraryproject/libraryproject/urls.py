@@ -23,7 +23,6 @@ urlpatterns = [
     url(r'^choose', views.choose, name='choose'),
     url(r'^$', views.home, name='home'),
     url(r'^add', views.add, name='add'),
-    url(r'^lend', views.lend, name='lend'),
     url(r'^books/$', BookList.as_view(), name='book_list'),
     url(r'^loans/$', LoansList.as_view(), name='loans_list'),
     url(r'^books/(?P<pk>\d+)$', BookDetail.as_view(), name='book_detail'),

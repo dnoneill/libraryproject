@@ -52,7 +52,7 @@ class Loans(models.Model):
 	date_created = models.DateTimeField(auto_now_add=True)
 	borrowed_from = models.CharField(max_length=256)
 	borrower = models.CharField(max_length=256, null=True)
-	book = models.ForeignKey(Book, on_delete=models.CASCADE)
+	book = models.ForeignKey(Book)
 
 	@property
 	def timesince(self):

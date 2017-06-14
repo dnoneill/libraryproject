@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import FormMixin
 
 import xmltodict, json
-from .forms import BookForm
+from .forms import BookForm, LoansForm
 from .models import Book, Loans
 # Create your views here.
 import requests
@@ -86,70 +87,53 @@ def add(request):
         info['publisher'] = data['GoodreadsResponse']['book']['publisher']
         info['num_pages'] = data['GoodreadsResponse']['book']['num_pages']
         info['url'] = data['GoodreadsResponse']['book']['url']
-        info['year'] = data['GoodreadsResponse']['book']['publication_year']
-        info['day'] = data['GoodreadsResponse']['book']['publication_day']
-        info['month'] = data['GoodreadsResponse']['book']['publication_month']
+        info['pubyear'] = data['GoodreadsResponse']['book']['publication_year']
+        info['pubday'] = data['GoodreadsResponse']['book']['publication_day']
+        info['pubmonth'] = data['GoodreadsResponse']['book']['publication_month']
         info['description'] = data['GoodreadsResponse']['book']['description']
-
-        return render(request, 'form.html', {'info':info})
+        form = LoansForm(initial=info)
+        return render(request, 'form.html', {'form':form, 'info':info})
     else:
-        return render(request, 'form.html', {})
+        form = LoansForm()
+        return render(request, 'form.html', {'form':form})
+        
+
+class LoansList(FormMixin, ListView):
+    model = Loans
+    form_class = LoansForm
+    ordering = ['-date_created']
     
-def lend(request):
-    if request.method == 'POST':
-        form = BookForm(request.POST)
+    def get_context_data(self, **kwargs):
+        context = super(LoansList, self).get_context_data(**kwargs)
+        context['form'] = self.get_form()
+        return context
+        
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
         if form.is_valid():
-            print(form.cleaned_data)
             book = Book()
-            if request.POST['title'] != 'None' or request.POST['title'] != '\n':
-                book.title = request.POST['title']
-            if request.POST['author'] != 'None' or request.POST['author'] != '\n':
-                book.author = request.POST['author']
-            if request.POST['author_id'] != 'None' or request.POST['author_id'] != '\n':
-                book.author_id = request.POST['author_id']
-            if request.POST['isbn'] != 'None' or request.POST['isbn'] != '\n':
-                book.ibsn = request.POST['isbn']
-            if request.POST['image_url'] != 'None' or request.POST['image_url'] != '\n':
-                book.small_image_url = request.POST['image_url']
-            if request.POST['publisher'] != 'None' or request.POST['publisher'] != '\n':
-                book.publisher = request.POST['publisher']
-            if request.POST['num_pages'] != 'None' or request.POST['num_pages'] != '\n':
-                book.num_pages = request.POST['num_pages']
-            if request.POST['num_pages'] == 'None':
-            	book.num_pages = 0
-            if request.POST['year'] != 'None' or request.POST['year'] != '\n':
-                book.pubyear = request.POST['year']
-            if request.POST['day'] != 'None' or request.POST['day'] != '\n':
-                book.pubday = request.POST['day']
-            if request.POST['month'] != 'None' or request.POST['month'] != '\n':
-                book.pubmonth = request.POST['month']
-            if request.POST['url'] != 'None' or request.POST['url'] != '\n':
-                book.url = request.POST['url']
-            if request.POST['year'] == 'None':
-                book.pubyear = 0
-            if request.POST['day'] == 'None':
-                book.pubday = 0
-            if request.POST['month'] == 'None':
-                book.pubmonth = 0
-            if request.POST['url'] != 'None' or request.POST['url'] != '\n':
-                book.url = request.POST['url']
-            if request.POST['description'] != 'None' or request.POST['description'] != '\n':
-                book.description = request.POST['description']
+            book.title = form.cleaned_data['title']
+            book.author = form.cleaned_data['author']
+            book.author_id = form.cleaned_data['author_id']
+            book.ibsn = form.cleaned_data['isbn']
+            book.small_image_url = form.cleaned_data['small_image_url']
+            book.publisher = form.cleaned_data['publisher']
+            book.num_pages = form.cleaned_data['num_pages']
+            book.pubyear = form.cleaned_data['pubyear']
+            book.pubday = form.cleaned_data['pubday']
+            book.pubmonth = form.cleaned_data['pubmonth']
+            book.url = form.cleaned_data['url']
+            book.url = form.cleaned_data['url']
+            book.description = form.cleaned_data['description']
             book.save()
             loan = Loans()
-            loan.borrower = request.POST['lendee']
-            loan.borrowed_from = request.POST['lender']
+            loan.borrower = form.cleaned_data['borrower']
+            loan.borrowed_from = form.cleaned_data['borrowed_from']
             loan.book = book
             loan.save()
             return HttpResponseRedirect('/loans/')
-    else:
-        form = BookForm()
-
-    return HttpResponseRedirect("/loans")
-
-class LoansList(ListView):
-    model = Loans
-    ordering = ['-date_created']
+        else:
+            return form.errors
     
 class BookList(ListView):
     model = Book
@@ -160,4 +144,4 @@ class BookDetail(DetailView):
     
 class LoansDetail(DetailView):
     model = Loans
-    
+	    
