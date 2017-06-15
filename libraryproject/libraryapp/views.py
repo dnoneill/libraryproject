@@ -50,7 +50,7 @@ def choose(request):
             url = 'https://www.goodreads.com/book/show/%s' % id
             books.append({'title':title, 'author':author,'image':image, 'date':date,
             'url':url, 'rating':rating, 'id':id})
-<<<<<<< HEAD
+
         else:
             for work in o['GoodreadsResponse']['search']['results']['work']:
                 title = work['best_book']['title']
@@ -86,10 +86,7 @@ def choose(request):
             error = "Error Recieved: {}<br><br>Add loan manually \
              <a href = '/add'>Add</a> or Refresh and try again".format(data.text)
             return HttpResponse(error)
-=======
-    return render(request, 'choose.html', {'choices':books})
     
->>>>>>> 97c4213cc629a6f94cfe11e21b3f4b63de4baed9
 def add(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
