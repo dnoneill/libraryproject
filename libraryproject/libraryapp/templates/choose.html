@@ -3,8 +3,7 @@
 {% load staticfiles %}
 {% block content %}
 <html>
-<head>
-
+<div class="container">
 <p> Type Author/Book Title combination into query box</p>
 <form action="/choose">
   Query:
@@ -12,11 +11,6 @@
   <input type="submit" value="Submit">
 </form> 
 {% block title %}{{ request.GET.q }} | Search{% endblock %}
-<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
 {{no_results}}
 {% for choice in choices %}
 <table>
@@ -31,7 +25,7 @@ Average Rating: {{choice.rating}}<br></th>
 </table>
 
 {% endfor %}
-
+</div>
 <style>
 table {
 }

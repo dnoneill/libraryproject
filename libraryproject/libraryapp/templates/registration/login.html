@@ -1,0 +1,52 @@
+<!-- login.html -->
+
+{% extends 'libraryapp/base.html' %}
+
+{% load staticfiles %}
+{% block name %}Login{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+    <div class="row">  
+
+      <br>
+
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger alert-dismissable" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          The form data was invalid:
+          {{form.non_field_errors}}
+        </div>
+      {% endif %}
+
+      <div class="col-md-8 col-md-offset-2">
+        <form class="form-horizontal" action="/login/" method="post">
+            
+          {% csrf_token %}
+
+          <!-- Username -->
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="{{form.username.id_for_label}}">Username</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="{{form.username.name}}" id="{{form.username.id}}" required>
+            </div>                      
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="{{form.password.id_for_label}}">Password</label>
+            <div class="col-sm-4">
+              <input type="password" class="form-control" name="{{form.password.name}}" id="{{form.password.id}}" required>
+            </div>                      
+          </div>
+
+          <div class="col-sm-4 col-sm-offset-4">
+            <input type="hidden" name="next" value="{{ next }}">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,8 +1,11 @@
+<html>
 {% extends 'libraryapp/base.html' %}
 
 {% load staticfiles %}
 
 {% block content %}
+<div class="container">
+{% block title %} {{info.title}} | Add{% endblock %} <br>
 <form action="/loans/" method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -10,8 +13,6 @@
    	{% endfor %}
    	<input type="submit" value="Submit">
 </form>
-
-<style>
-input { display: inline; }
-</style>
+</div>
+</html>
 {% endblock %}
