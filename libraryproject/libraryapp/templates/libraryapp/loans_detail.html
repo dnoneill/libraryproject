@@ -12,23 +12,26 @@
         <div class="panel-body">
           <dl class="dl-horizontal">
           	<dt>Lender</dt>
-            <dd>{{loans.borrowed_from}}</a></dd>
-            
-            <dt>Lendee</dt>
-            <dd>{{loans.borrower}}</a></dd>
+            <dd>{{loans.borrowed_from}}</dd>
             
             <dt>Date Lent</dt>
-            <dd>{{loans.date_created}}</a></dd>
+            <dd>{{loans.date_created}}</dd>
+            
+            <dt>Date Lent</dt>
+            <dd>{{loans.date_created}}</dd>
 
 			<dt>Loan Length</dt>
-            <dd>{{loans.timesince}}</a></dd>
+            <dd>{{loans.timesince}}</dd>
             
             <dt>Author</dt>
-            <dd>{{loans.book.author}}</a></dd>
-        	
+            <dd>{{loans.book.author}}</dd>
+            
+            <dt>Author Page</dt>
+            <dd><a href = "http://www.goodreads.com/author/show/{{loans.book.author_id}}" target=_blank>http://www.goodreads.com/author/show/{{loans.book.author_id}}</a><dd>
+
         	<dt>Description</dt>
         	{% autoescape off %}
-            <dd>{{loans.book.description}}</a></dd>
+            <dd>{{loans.book.description}}</dd>
             {% endautoescape %}
             <dt>Published</dt>
             <dd>{{loans.book.date}}</dd>
@@ -41,7 +44,6 @@
             
             <dt>Pages</dt>
             <dd>{{loans.book.num_pages}}</dd>
-            
             
             <dt>Goodreads URL</dt>
             <dd><a href="{{loans.book.url}}">{{loans.book.url}}</a></dd>

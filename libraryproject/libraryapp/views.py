@@ -97,12 +97,10 @@ def add(request):
         form = LoansForm()
         return render(request, 'form.html', {'form':form})
         
-
 class LoansList(FormMixin, ListView):
     model = Loans
     form_class = LoansForm
     ordering = ['-date_created']
-    
     def get_context_data(self, **kwargs):
         context = super(LoansList, self).get_context_data(**kwargs)
         context['form'] = self.get_form()
@@ -134,7 +132,7 @@ class LoansList(FormMixin, ListView):
             return HttpResponseRedirect('/loans/')
         else:
             return form.errors
-    
+
 class BookList(ListView):
     model = Book
     ordering = ['title']
@@ -144,4 +142,3 @@ class BookDetail(DetailView):
     
 class LoansDetail(DetailView):
     model = Loans
-	    
