@@ -17,13 +17,14 @@ MONTHS = (
     (12, "December")
     )
 # Create your models here.
-
+class Author(models.Model):
+	author = models.CharField(max_length=2000, null=True)
+	
 class Book(models.Model):
 
 	title = models.CharField(max_length=256)
 	isbn = models.IntegerField(null=True)
-	author = models.CharField(max_length=256)
-	author_id = models.IntegerField(null=True)
+	author = models.ForeignKey(Author, related_name='books')
 	small_image_url = models.URLField(max_length=200, null=True, blank=True)
 	publisher = models.CharField(max_length=256, null=True)
 	num_pages = models.IntegerField(null=True)

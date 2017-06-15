@@ -1,6 +1,12 @@
 <html>
 <head>
-<title>Search: {{ request.GET.q }}</title>
+<p> Type Author/Book Title combination into query box</p>
+<form action="/choose">
+  Query:
+  <input type="text" name="q" value="">
+  <input type="submit" value="Submit">
+</form> 
+<title>{{ request.GET.q }} | Search</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
