@@ -1,0 +1,46 @@
+
+          <!-- Login Form Modal -->
+          <div class="modal fade" id="login-form-modal" tabindex="-1" role="dialog" aria-labelledby="Login Modal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                
+                <form class="form-horizontal" action="/login/" method="post">
+
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Login</h4>
+                  </div>
+
+                  <div class="modal-body"> 
+                    
+                    {% csrf_token %}
+
+                    <!-- Username -->
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="username">Username</label>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control" name="username" id="username" required>
+                      </div>                      
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="password">Password</label>
+                      <div class="col-sm-4">
+                        <input type="password" class="form-control" name="password" id="password" required>
+                      </div>                      
+                    </div>
+
+                  </div>
+
+                  <div class="modal-footer">
+                    <input type="hidden" name="next" value="{{request.path}}"/>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+          </div>
