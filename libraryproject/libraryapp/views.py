@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import permission_required
+from django.utils.decorators import method_decorator
 
 import xmltodict, json
 from .forms import BookForm, LoansForm
@@ -105,7 +108,8 @@ class LoansList(FormMixin, ListView):
         context = super(LoansList, self).get_context_data(**kwargs)
         context['form'] = self.get_form()
         return context
-        
+    
+    @method_decorator(permission_required('libraryapp.can_add_loan'))
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():

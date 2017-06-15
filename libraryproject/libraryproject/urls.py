@@ -13,10 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from libraryapp import views as views
 from libraryapp.views import LoansList, BookList, LoansDetail, BookDetail
+
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,4 +29,5 @@ urlpatterns = [
     url(r'^loans/$', LoansList.as_view(), name='loans_list'),
     url(r'^books/(?P<pk>\d+)$', BookDetail.as_view(), name='book_detail'),
     url(r'^loans/(?P<pk>\d+)$', LoansDetail.as_view(), name='loans_detail'),
+    url(r'^', include('django.contrib.auth.urls')),
 ]
