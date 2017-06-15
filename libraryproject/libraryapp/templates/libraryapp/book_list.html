@@ -1,6 +1,13 @@
+{% extends 'libraryapp/base.html'}
+
+{% load staticfiles %}
+
+{% block name %}Books List{% endblock %}
+
+{% block content %}
 <title>Book List</title>
-  <div class="row">
-    <br>
+  <div class="container">
+    <h1>My books</h1>
     <table class="table">
       <tr>
       	<th></th>
@@ -22,4 +29,4 @@
       {% endif %}
     </table>
   </div>
-</div>
+{% endblock %}

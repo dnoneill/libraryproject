@@ -1,11 +1,17 @@
+{% extends 'libraryapp/base.html' %}
+
+{% load staticfiles %}
+
+
 <title>{{book.title}} | Details</title>
+
 {% block content %}
 <div class="container">
   <div class="jumbotron">
     <h1><img src="{{book.small_image_url}}"/>{{book.title}}</h1>
-  </div>
+    <h2>Details</h2>
+
   <div class="row">
-    
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">Details</div>
