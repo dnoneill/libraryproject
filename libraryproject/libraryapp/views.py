@@ -71,9 +71,13 @@ def choose(request):
                 'url':url, 'rating':rating, 'id':id})
         return render(request, 'choose.html', {'choices':books})
     except:
-        error = "Error Recieved: {}<br><br>Add loan manually \
-         <a href = '/add'>Add</a> or Refresh and try again".format(data.text)
-        return HttpResponse(error)
+        if o['GoodreadsResponse']['search']['total-results'] == '0':
+            no_results = "No results with search query: {}".format(query)
+            return render(request, 'choose.html', {'choices':books, 'no_results':no_results})
+        else:
+            error = "Error Recieved: {}<br><br>Add loan manually \
+             <a href = '/add'>Add</a> or Refresh and try again".format(data.text)
+            return HttpResponse(error)
 def add(request):
     id = request.GET.get('id')
     if id != None:
