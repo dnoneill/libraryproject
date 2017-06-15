@@ -16,10 +16,10 @@
         <div class="panel-body">
           <dl class="dl-horizontal">
           	<dt>Lender</dt>
-            <dd>{{loans.borrowed_from}}</dd>
+            <dd><td><a href="/user/{{loans.borrowed_from.id}}">{{loans.borrowed_from}}</a></td></dd>
             
             <dt>Borrower</dt>
-            <dd>{{loans.borrower}}</dd>
+            <dd><td><a href="/user/{{loans.borrower.id}}">{{loans.borrower}}</a></td></dd>
             
             <dt>Date Lent</dt>
             <dd>{{loans.date_created}}</dd>

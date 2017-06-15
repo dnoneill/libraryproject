@@ -1,5 +1,6 @@
 from django import forms
 from .models import Book, Loans, Author
+from django.contrib.auth.models import User
 
 
 class BookForm(forms.Form):
@@ -7,8 +8,9 @@ class BookForm(forms.Form):
 		model = Book
 		fields = '__all__'
 class LoansForm(forms.Form):
-	borrowed_from = forms.CharField(max_length=256)
-	borrower = forms.CharField(max_length=256)
+	choices = User.objects.values_list('id', 'username')
+	borrowed_from = forms.ChoiceField(choices=choices)
+	borrower = forms.ChoiceField(choices=choices)
 	title = forms.CharField(max_length=256)
 	isbn = forms.IntegerField(required=False)
 	author = forms.CharField(max_length=256, required=False)
@@ -21,3 +23,4 @@ class LoansForm(forms.Form):
 	pubmonth = forms.IntegerField(required=False)
 	url = forms.URLField(max_length=200, required=False)
 	description = forms.CharField(max_length=10000, required=False)
+    
