@@ -20,13 +20,13 @@
             <dt>User ID</dt>
             <dd>{{user.id}}</dd>
             
-            <dt>Borrowed Books</dt>
-            {% for borrowed in borrowed_from %}
-            <dd><a href = "/books/{{borrowed.book.id}}">{{borrowed.book.title}}</a></dd>
-            {% endfor %}
             <dt>Lent Books</dt>
-            {% for lent in borrower %}
+            {% for lent in borrowed_from %}
             <dd><a href = "/books/{{lent.book.id}}">{{lent.book.title}}</a></dd>
+            {% endfor %}
+            <dt>Borrowed Books</dt>
+            {% for borrow in borrower %}
+            <dd><a href = "/books/{{borrow.book.id}}">{{borrow.book.title}}</a></dd>
             
             {% endfor %}
             
