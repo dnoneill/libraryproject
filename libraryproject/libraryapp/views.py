@@ -5,11 +5,11 @@ from django.views.generic.edit import FormMixin
 
 import xmltodict, json
 from .forms import BookForm, LoansForm
-from .models import Book, Loans
+from .models import Book, Loans, Author
 # Create your views here.
 import requests
 def home(request):
-    return render(request, 'home.html')
+    return HttpResponseRedirect("/loans")
     
 def choose(request):
     query = request.GET.get('q')
@@ -109,10 +109,13 @@ class LoansList(FormMixin, ListView):
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
+            author = Author()
+            author.author = form.cleaned_data['author']
+            author.id = form.cleaned_data['author_id']
+            author.save()
             book = Book()
             book.title = form.cleaned_data['title']
-            book.author = form.cleaned_data['author']
-            book.author_id = form.cleaned_data['author_id']
+            book.author = author
             book.ibsn = form.cleaned_data['isbn']
             book.small_image_url = form.cleaned_data['small_image_url']
             book.publisher = form.cleaned_data['publisher']
@@ -135,10 +138,25 @@ class LoansList(FormMixin, ListView):
 
 class BookList(ListView):
     model = Book
-    ordering = ['title']
+    ordering = ['-author']
 
 class BookDetail(DetailView):
     model = Book
     
 class LoansDetail(DetailView):
     model = Loans
+    ordering = ['date_created']
+
+class AuthorDetail(DetailView):
+    model = Author
+   
+    def get_context_data(self, **kwargs):
+        context = super(AuthorDetail, self).get_context_data(**kwargs)
+        context['books'] = self.object.books.all()
+        return context
+
+class AuthorList(ListView):
+    model = Author
+    ordering = ['author']
+
+    

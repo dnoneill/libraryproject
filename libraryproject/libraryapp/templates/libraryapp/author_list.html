@@ -1,0 +1,18 @@
+<title>Loans List</title>
+   <div class="row">
+    <br>      
+    <table class="table">
+      <tr>
+      	<th>Authors</th>
+      </tr>
+      {% if object_list %}
+        {% for author in object_list %}
+        <tr>
+          <td><a href="/author/{{author.id}}">{{author.author}}</a></td>
+          <td>
+        </tr>
+        {% endfor %}
+      {% endif %}
+    </table>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Book, Loans
+from .models import Book, Loans, Author
 
 
 class BookForm(forms.Form):
