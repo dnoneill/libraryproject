@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 
-<title>{{book.title}} | Details</title>
+{% block title %}{{book.title}} | Details{% endblock %}
 
 {% block content %}
 <div class="container">

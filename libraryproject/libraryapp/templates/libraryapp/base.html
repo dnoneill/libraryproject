@@ -10,10 +10,35 @@
 				<meta name="robots" content="NONE,NOARCHIVE" />
 			{% endblock %}
 
-			<title>{% block title %}{% block name %}{% endblock %} - Borrow Books Project{% endblock %}</title>
+			<title>{% block title %}{% block name %}{% endblock %}{% endblock %}</title>
 
 			{% block style %}
 				<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+				<style>
+				ul {
+					list-style-type: none;
+					margin: 0;
+					padding: 0;
+					overflow: hidden;
+					background-color: #333;
+				}
+
+				li {
+					float: left;
+				}
+
+				li a {
+					display: block;
+					color: white;
+					text-align: center;
+					padding: 14px 16px;
+					text-decoration: none;
+				}
+
+				li a:hover {
+					background-color: #111;
+				}
+			</style>
 			{% endblock %}
 
 			{% block style_extra %}
@@ -36,14 +61,10 @@
 								</a>
 							{% endblock %}
 						</span>
-						<ul class="nav navbar-nav">
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">List Views<span class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<li><a href="/books/">Books List</a></li>
-									<li><a href="/loans/">Loans List</a></li>
-								</ul>
-							</li>
+						<ul>
+						  <li><a href="/loans">Loans</a></li>
+						  <li><a href="/books">Books</a></li>
+						  <li><a href="/choose">Search Books</a></li>
 						</ul>
 					</div>
 				</div>

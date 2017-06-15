@@ -1,8 +1,8 @@
 {% extends 'libraryapp/base.html' %}
 
 {% load staticfiles %}
-
-<title>Loans List</title>
+{% block content %}
+{% block title %}Loans List {% endblock %}
    <div class="row">
     <br>      
     <table class="table">
@@ -31,3 +31,4 @@
     </table>
   </div>
 </div>
+{% endblock %}
