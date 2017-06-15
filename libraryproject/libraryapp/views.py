@@ -5,6 +5,8 @@ from django.views.generic.edit import FormMixin
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import permission_required
 from django.utils.decorators import method_decorator
+from django.conf import settings
+from django.shortcuts import redirect
 
 import xmltodict, json
 from .forms import BookForm, LoansForm
@@ -15,6 +17,8 @@ def home(request):
     return render(request, 'home.html')
     
 def choose(request):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
     query = request.GET.get('q')
     data = requests.get("https://www.goodreads.com/search/index.xml?key=lTxFf0cwiHnsUItGsSIX9g&q=%s"%query)
     o = xmltodict.parse(data.text)
@@ -72,7 +76,10 @@ def choose(request):
             books.append({'title':title, 'author':author,'image':image, 'date':date,
             'url':url, 'rating':rating, 'id':id})
     return render(request, 'choose.html', {'choices':books})
+    
 def add(request):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
     id = request.GET.get('id')
     if id != None:
         info = requests.get("https://www.goodreads.com/book/show.xml?id=%s&key=lTxFf0cwiHnsUItGsSIX9g"%id)
