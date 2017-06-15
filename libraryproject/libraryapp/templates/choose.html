@@ -3,8 +3,7 @@
 {% load staticfiles %}
 {% block content %}
 <html>
-<head>
-
+<div class="container">
 <p> Type Author/Book Title combination into query box</p>
 <form action="/choose">
   Query:
@@ -26,7 +25,7 @@ Average Rating: {{choice.rating}}<br></th>
 </table>
 
 {% endfor %}
-
+</div>
 <style>
 table {
 }
