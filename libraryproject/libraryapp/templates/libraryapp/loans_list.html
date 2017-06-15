@@ -4,8 +4,12 @@
 
 {% block content %}
 {% block title %}Loans List {%endblock%}
-   <div class="row">
-    <br>      
+{% if perms.collection.add_book %}
+                <button type="button" class="btn btn-primary navbar-btn pull-right" data-toggle="modal" data-target="#loans-form-modal">New Loan</button>
+                {% include "libraryapp/loans-form-modal.html" %}
+            {% endif %}
+   <div class="container">
+    <h1> Loans </h1>   
     <table class="table">
       <tr>
       	<th></th>
@@ -33,3 +37,4 @@
   </div>
 </div>
 {% endblock %}
+

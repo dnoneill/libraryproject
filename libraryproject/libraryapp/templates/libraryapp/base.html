@@ -61,11 +61,32 @@
 								</a>
 							{% endblock %}
 						</span>
-						<ul>
+						<ul class="nav navbar-nav pull-left">
 						  <li><a href="/loans">Loans</a></li>
 						  <li><a href="/books">Books</a></li>
 						  <li><a href="/choose">Search Books</a></li>
 						</ul>
+						
+				<ul class="nav navbar-nav pull-right">
+                {% block userlinks %}
+                  {% if user.is_authenticated %}
+                    <li>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        {{user}}
+                        <b class="caret"></b>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li><a href='/logout/?next={{request.path}}'>Log out</a></li>
+                        <li><a href='/password_change/?next={{request.path}}'>Change Password</a></li>
+                      </ul>
+                    </li>
+                  {% else %}
+                    <li>
+                      <a href="/login">Log in</a>
+                    </li>
+                  {% endif %}
+                {% endblock %}
+              </ul>
 					</div>
 				</div>
 			{% endblock %}

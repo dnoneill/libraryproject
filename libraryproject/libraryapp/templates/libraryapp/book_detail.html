@@ -2,31 +2,29 @@
 
 {% load staticfiles %}
 
-
-{% block title %}{{book.title}} | Details{% endblock %}
-
+{% block title %} {{book.title}} | Details {% endblock %}
 {% block content %}
 <div class="container">
   <div class="jumbotron">
     <h1><img src="{{book.small_image_url}}"/>{{book.title}}</h1>
-    <h2>Details</h2>
-
+  </div>
   <div class="row">
+    
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">Details</div>
         <div class="panel-body">
           <dl class="dl-horizontal">
-
+            
             <dt>Author</dt>
             <dd><a href="/author/{{book.author.id}}">{{book.author.author}}</a></dd>
             
             <dt>Author Page</dt>
             <dd><a href = "http://www.goodreads.com/author/show/{{book.author.id}}" target=_blank>http://www.goodreads.com/author/show/{{book.author.id}}</a><dd>
-        	
+
         	<dt>Description</dt>
         	{% autoescape off %}
-            <dd>{{book.description}}</a></dd>
+            <dd>{{book.description}}</dd>
             {% endautoescape %}
             
             <dt>Published</dt>
@@ -40,7 +38,7 @@
             
             <dt>Pages</dt>
             <dd>{{book.num_pages}}</dd>
-                    
+            
             <dt>Goodreads URL</dt>
             <dd><a href="{{book.url}}">{{book.url}}</a></dd>
             

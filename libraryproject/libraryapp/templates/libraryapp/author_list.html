@@ -1,9 +1,10 @@
 {% extends 'libraryapp/base.html' %}
 
-{% load static files %}
+{% load staticfiles %}
 
 {% block title %}Authors List{% endblock %}
-   <div class="row">
+{% block content %}
+   <div class="container">
     <br>      
     <table class="table">
       <tr>
@@ -20,3 +21,4 @@
     </table>
   </div>
 </div>
+{% endblock %}
