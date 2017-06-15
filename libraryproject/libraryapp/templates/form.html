@@ -1,6 +1,8 @@
-<html>
+{% extends 'libraryapp/base.html' %}
 
-<title>Add {{info.title}}</title>
+{% load staticfiles %}
+
+{% block content %}
 <form action="/loans/" method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -12,4 +14,4 @@
 <style>
 input { display: inline; }
 </style>
-</html>
+{% endblock %}
