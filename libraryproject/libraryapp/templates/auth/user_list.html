@@ -1,0 +1,24 @@
+{% extends 'libraryapp/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Authors List{% endblock %}
+{% block content %}
+   <div class="container">
+    <br>      
+    <table class="table">
+      <tr>
+      	<th>Authors</th>
+      </tr>
+      {% if object_list %}
+        {% for user in object_list %}
+        <tr>
+          <td><a href="/user/{{user.id}}">{{user}}</a></td>
+          <td>
+        </tr>
+        {% endfor %}
+      {% endif %}
+    </table>
+  </div>
+</div>
+{% endblock %}

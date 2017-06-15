@@ -1,0 +1,37 @@
+{% extends 'libraryapp/base.html' %}
+
+
+{% block title %} {{user}} | Details {% endblock %}
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <h1>{{user}}</h1>
+  </div>
+  <div class="row">
+    
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">Details</div>
+        <div class="panel-body">
+          <dl class="dl-horizontal">
+          	<dt>User</dt>
+            <dd>{{user}}</dd>
+            
+            <dt>User ID</dt>
+            <dd>{{user.id}}</dd>
+            
+            <dt>Borrowed Books</dt>
+            {% for borrowed in borrowed_from %}
+            <dd><a href = "/books/{{borrowed.book.id}}">{{borrowed.book.title}}</a></dd>
+            {% endfor %}
+            <dt>Lent Books</dt>
+            {% for lent in borrower %}
+            <dd><a href = "/books/{{lent.book.id}}">{{lent.book.title}}</a></dd>
+            
+            {% endfor %}
+            
+          </dl>
+        </div>
+      </div>
+    </div>
+{% endblock %}
