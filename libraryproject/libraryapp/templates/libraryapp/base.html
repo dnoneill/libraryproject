@@ -1,0 +1,89 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		{% block head %}
+
+			{% block meta %}
+				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+				<meta name="robots" content="NONE,NOARCHIVE" />
+			{% endblock %}
+
+			<title>{% block title %}{% block name %}{% endblock %}{% endblock %}</title>
+
+			{% block style %}
+				<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+				<style>
+				ul {
+					list-style-type: none;
+					margin: 0;
+					padding: 0;
+					overflow: hidden;
+					background-color: #333;
+				}
+
+				li {
+					float: left;
+				}
+
+				li a {
+					display: block;
+					color: white;
+					text-align: center;
+					padding: 14px 16px;
+					text-decoration: none;
+				}
+
+				li a:hover {
+					background-color: #111;
+				}
+			</style>
+			{% endblock %}
+
+			{% block style_extra %}
+			{% endblock %}
+
+		{% endblock %}
+	</head>
+
+	{% block body %}
+	<body class="{% block bodyclass %}{% endblock %}">
+
+		<div class="wrapper">
+			{% block navbar %}
+				<div class="navbar navbar-static-top {% block bootstrap_navbar_variant %}navbar-inverse{% endblock %}">
+					<div class="container">
+						<span>
+							{% block branding %}
+								<a class='navbar-brand' rel="nofollow" href='/'>
+									Personal Library
+								</a>
+							{% endblock %}
+						</span>
+						<ul>
+						  <li><a href="/loans">Loans</a></li>
+						  <li><a href="/books">Books</a></li>
+						  <li><a href="/choose">Search Books</a></li>
+						</ul>
+					</div>
+				</div>
+			{% endblock %}
+
+			{% block content %}
+			{% endblock %}
+
+
+		</div><!-- ./wrapper -->
+
+		{% block script %}
+			<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+			<script src="{% static 'js/bootstrap.min.js' %}"></script>
+		{% endblock %}
+
+		{% block script_extra %}
+		{% endblock %}
+
+	</body>
+	{% endblock %}
+</html>

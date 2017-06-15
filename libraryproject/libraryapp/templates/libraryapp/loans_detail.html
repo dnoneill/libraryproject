@@ -1,4 +1,8 @@
-<title> {{loans.book.title}} | Details </title>
+{% extends 'libraryapp/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %} {{loans.book.title}} | Details {% endblock %}
 {% block content %}
 <div class="container">
   <div class="jumbotron">
