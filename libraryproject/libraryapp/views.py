@@ -5,6 +5,8 @@ from django.views.generic.edit import FormMixin
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import permission_required
 from django.utils.decorators import method_decorator
+from django.conf import settings
+from django.shortcuts import redirect
 
 import xmltodict, json
 from .forms import BookForm, LoansForm
@@ -15,6 +17,8 @@ def home(request):
     return HttpResponseRedirect("/loans")
     
 def choose(request):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
     query = request.GET.get('q')
     data = requests.get("https://www.goodreads.com/search/index.xml?key=lTxFf0cwiHnsUItGsSIX9g&q=%s"%query)
     o = xmltodict.parse(data.text)
@@ -46,6 +50,7 @@ def choose(request):
             url = 'https://www.goodreads.com/book/show/%s' % id
             books.append({'title':title, 'author':author,'image':image, 'date':date,
             'url':url, 'rating':rating, 'id':id})
+<<<<<<< HEAD
         else:
             for work in o['GoodreadsResponse']['search']['results']['work']:
                 title = work['best_book']['title']
@@ -81,7 +86,13 @@ def choose(request):
             error = "Error Recieved: {}<br><br>Add loan manually \
              <a href = '/add'>Add</a> or Refresh and try again".format(data.text)
             return HttpResponse(error)
+=======
+    return render(request, 'choose.html', {'choices':books})
+    
+>>>>>>> 97c4213cc629a6f94cfe11e21b3f4b63de4baed9
 def add(request):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
     id = request.GET.get('id')
     if id != None:
         info = requests.get("https://www.goodreads.com/book/show.xml?id=%s&key=lTxFf0cwiHnsUItGsSIX9g"%id)
