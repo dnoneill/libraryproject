@@ -16,34 +16,9 @@ def choose(request):
     data = requests.get("https://www.goodreads.com/search/index.xml?key=lTxFf0cwiHnsUItGsSIX9g&q=%s"%query)
     o = xmltodict.parse(data.text)
     books = []
-    if o['GoodreadsResponse']['search']['total-results'] == '1':
-        work = o['GoodreadsResponse']['search']['results']['work']
-        title = work['best_book']['title']
-        author = work['best_book']['author']['name']
-        image = work['best_book']['small_image_url']
-        try:
-            month = work['original_publication_month']['#text']
-        except:
-            month = work['original_publication_month']['@nil']
-        try:
-            year = work['original_publication_year']['#text']
-        except:
-            year = work['original_publication_year']['@nil']
-        try:
-            day = work['original_publication_day']['#text']
-        except:
-            day = work['original_publication_day']['@nil']
-        date = "%s/%s/%s" % (month, day, year)
-        id = work['best_book']['id']['#text']
-        try:
-            rating = work['average_rating']['#text']
-        except:
-            rating = work['average_rating']
-        url = 'https://www.goodreads.com/book/show/%s' % id
-        books.append({'title':title, 'author':author,'image':image, 'date':date,
-        'url':url, 'rating':rating, 'id':id})
-    else:
-        for work in o['GoodreadsResponse']['search']['results']['work']:
+    try:
+        if o['GoodreadsResponse']['search']['total-results'] == '1':
+            work = o['GoodreadsResponse']['search']['results']['work']
             title = work['best_book']['title']
             author = work['best_book']['author']['name']
             image = work['best_book']['small_image_url']
@@ -68,7 +43,41 @@ def choose(request):
             url = 'https://www.goodreads.com/book/show/%s' % id
             books.append({'title':title, 'author':author,'image':image, 'date':date,
             'url':url, 'rating':rating, 'id':id})
-    return render(request, 'choose.html', {'choices':books})
+        else:
+            for work in o['GoodreadsResponse']['search']['results']['work']:
+                title = work['best_book']['title']
+                author = work['best_book']['author']['name']
+                image = work['best_book']['small_image_url']
+                try:
+                    month = work['original_publication_month']['#text']
+                except:
+                    month = work['original_publication_month']['@nil']
+                try:
+                    year = work['original_publication_year']['#text']
+                except:
+                    year = work['original_publication_year']['@nil']
+                try:
+                    day = work['original_publication_day']['#text']
+                except:
+                    day = work['original_publication_day']['@nil']
+                date = "%s/%s/%s" % (month, day, year)
+                id = work['best_book']['id']['#text']
+                try:
+                    rating = work['average_rating']['#text']
+                except:
+                    rating = work['average_rating']
+                url = 'https://www.goodreads.com/book/show/%s' % id
+                books.append({'title':title, 'author':author,'image':image, 'date':date,
+                'url':url, 'rating':rating, 'id':id})
+        return render(request, 'choose.html', {'choices':books})
+    except:
+        if o['GoodreadsResponse']['search']['total-results'] == '0':
+            no_results = "No results with search query: {}".format(query)
+            return render(request, 'choose.html', {'choices':books, 'no_results':no_results})
+        else:
+            error = "Error Recieved: {}<br><br>Add loan manually \
+             <a href = '/add'>Add</a> or Refresh and try again".format(data.text)
+            return HttpResponse(error)
 def add(request):
     id = request.GET.get('id')
     if id != None:
