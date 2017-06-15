@@ -1,0 +1,35 @@
+{% extends 'libraryapp/base.html' %}
+
+{% load static files %}
+
+<title> {{author.author}} | Details </title>
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <h1>{{author.author}}</h1>
+  </div>
+  <div class="row">
+    
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">Details</div>
+        <div class="panel-body">
+          <dl class="dl-horizontal">
+          	<dt>Author</dt>
+            <dd>{{author.author}}</dd>
+            
+            <dt>Author ID</dt>
+            <dd>{{author.id}}</dd>
+            
+            <dt>Books</dt>
+            {% for book in books %}
+            
+            <a href = "/books/{{book.id}}">{{book.title}}</a><br>
+            
+            {% endfor %}
+            
+          </dl>
+        </div>
+      </div>
+    </div>
+{% endblock %}

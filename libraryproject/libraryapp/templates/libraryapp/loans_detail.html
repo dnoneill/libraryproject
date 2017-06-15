@@ -1,3 +1,7 @@
+{% extends 'libraryapp/base.html' %}
+
+{% load staticfiles %}
+
 <title> {{loans.book.title}} | Details </title>
 {% block content %}
 <div class="container">
@@ -14,25 +18,26 @@
           	<dt>Lender</dt>
             <dd>{{loans.borrowed_from}}</dd>
             
-            <dt>Date Lent</dt>
-            <dd>{{loans.date_created}}</dd>
+            <dt>Borrower</dt>
+            <dd>{{loans.borrower}}</dd>
             
             <dt>Date Lent</dt>
             <dd>{{loans.date_created}}</dd>
-
+            
 			<dt>Loan Length</dt>
             <dd>{{loans.timesince}}</dd>
             
             <dt>Author</dt>
-            <dd>{{loans.book.author}}</dd>
+            <dd><a href="/author/{{loans.book.author.id}}">{{loans.book.author.author}}</a></dd>
             
             <dt>Author Page</dt>
-            <dd><a href = "http://www.goodreads.com/author/show/{{loans.book.author_id}}" target=_blank>http://www.goodreads.com/author/show/{{loans.book.author_id}}</a><dd>
+            <dd><a href = "http://www.goodreads.com/author/show/{{loans.book.author.id}}" target=_blank>http://www.goodreads.com/author/show/{{loans.book.author.id}}</a><dd>
 
         	<dt>Description</dt>
         	{% autoescape off %}
             <dd>{{loans.book.description}}</dd>
             {% endautoescape %}
+            
             <dt>Published</dt>
             <dd>{{loans.book.date}}</dd>
         
