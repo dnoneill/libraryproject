@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from libraryapp import views as views
-from libraryapp.views import LoansList, BookList, LoansDetail, BookDetail, AuthorList, AuthorDetail
+from libraryapp.views import LoansList, BookList, LoansDetail, BookDetail, AuthorList, AuthorDetail, UserDetail
 
 from django.views.generic.base import RedirectView
 
@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^books/$', BookList.as_view(), name='book_list'),
     url(r'^loans/$', LoansList.as_view(), name='loans_list'),
     url(r'^author/$', AuthorList.as_view(), name='author_list'),
+    url(r'^user/(?P<pk>\d+)$', UserDetail.as_view(), name='user_detail'),
     url(r'^author/(?P<pk>\d+)$', AuthorDetail.as_view(), name='author_detail'),
     url(r'^books/(?P<pk>\d+)$', BookDetail.as_view(), name='book_detail'),
     url(r'^loans/(?P<pk>\d+)$', LoansDetail.as_view(), name='loans_detail'),

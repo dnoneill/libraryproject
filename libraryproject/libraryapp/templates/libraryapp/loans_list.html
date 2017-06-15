@@ -26,8 +26,8 @@
           <td><img src="{{loan.book.small_image_url}}"/></td>
           <td><a href="/loans/{{loan.id}}">{{loan.book.title}}</a></td>
           <td><a href="/author/{{loan.book.author.id}}">{{loan.book.author.author}}</a></td>
-          <td>{{loan.borrowed_from}}</td>
-          <td>{{loan.borrower}}</td>
+          <td><a href="/user/{{loan.borrowed_from.id}}">{{loan.borrowed_from}}</a></td>
+          <td><a href="/user/{{loan.borrower.id}}">{{loan.borrower}}</a></td>
           <td>{{loan.date_created}}</td>
           <td>{{loan.timesince}}</td>
         </tr>

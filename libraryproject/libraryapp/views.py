@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import permission_required
 from django.utils.decorators import method_decorator
 from django.conf import settings
 from django.shortcuts import redirect
+from django.contrib.auth.models import User
 
 import xmltodict, json
 from .forms import BookForm, LoansForm
@@ -111,6 +112,7 @@ def add(request):
         info['pubday'] = data['GoodreadsResponse']['book']['publication_day']
         info['pubmonth'] = data['GoodreadsResponse']['book']['publication_month']
         info['description'] = data['GoodreadsResponse']['book']['description']
+        info['borrowed_from'] = request.user.id
         form = LoansForm(initial=info)
         return render(request, 'form.html', {'form':form, 'info':info})
     else:
@@ -149,8 +151,10 @@ class LoansList(FormMixin, ListView):
             book.description = form.cleaned_data['description']
             book.save()
             loan = Loans()
-            loan.borrower = form.cleaned_data['borrower']
-            loan.borrowed_from = form.cleaned_data['borrowed_from']
+            borrower = User.objects.get(id=form.cleaned_data['borrower'])
+            borrowed_from = User.objects.get(id=form.cleaned_data['borrowed_from'])
+            loan.borrower = borrower
+            loan.borrowed_from = borrowed_from
             loan.book = book
             loan.save()
             return HttpResponseRedirect('/loans/')
@@ -163,6 +167,10 @@ class BookList(ListView):
 
 class BookDetail(DetailView):
     model = Book
+    def get_context_data(self, **kwargs):
+        context = super(BookDetail, self).get_context_data(**kwargs)
+        context['loans'] = self.object.loans.all()
+        return context
     
 class LoansDetail(DetailView):
     model = Loans
@@ -181,3 +189,11 @@ class AuthorList(ListView):
     ordering = ['author']
 
     
+class UserDetail(DetailView):
+    model = User
+    
+    def get_context_data(self, **kwargs):
+        context = super(UserDetail, self).get_context_data(**kwargs)
+        context['borrower'] = self.object.borrower.all()
+        context['borrowed_from'] = self.object.borrowed_from.all()
+        return context

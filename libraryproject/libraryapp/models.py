@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 MONTHS = (
     (1, "January"),
@@ -51,9 +52,9 @@ class Book(models.Model):
 class Loans(models.Model):
 
 	date_created = models.DateTimeField(auto_now_add=True)
-	borrowed_from = models.CharField(max_length=256)
-	borrower = models.CharField(max_length=256, null=True)
-	book = models.ForeignKey(Book)
+	borrowed_from = models.ForeignKey(User, related_name='borrowed_from')
+	borrower = models.ForeignKey(User, related_name='borrower')
+	book = models.ForeignKey(Book, related_name='loans')
 
 	@property
 	def timesince(self):
