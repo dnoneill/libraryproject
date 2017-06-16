@@ -30,7 +30,7 @@ Developer Installation
 
         (ENV)$ pip install -r requirements.txt
         
-5. Load data
+5. Load test data
 
         (ENV)$ cd libraryproject
         (ENV)$ python manage.py loaddata users
