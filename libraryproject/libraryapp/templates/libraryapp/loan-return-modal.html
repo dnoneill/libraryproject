@@ -1,0 +1,25 @@
+ <div class="modal fade" id="loan-return-modal" tabindex="-1" role="dialog" aria-labelledby="Loan Return Modal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                
+                <form id="return" class="form-horizontal" action="" method="post">
+                    {% csrf_token %}
+
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Return Book "{{loans.book.title}}"</h4>
+                    </div>
+
+                    <div class="col-md-offset-1">
+                      <span class="text-danger">Are you sure you wish to return this book?</span>
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                      <input type="submit" class="btn btn-danger" value="Return" />
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
