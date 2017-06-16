@@ -30,9 +30,14 @@ Developer Installation
 
         (ENV)$ pip install -r requirements.txt
         
-5. Load test data
+4.5 Migrate models if necessary
 
         (ENV)$ cd libraryproject
+        (ENV)$ python manage.py makemigrations
+        (ENV)$ python manage.py migrate
+  
+5. Load test data
+
         (ENV)$ python manage.py loaddata users
         (ENV)$ python manage.py loaddata data
         
