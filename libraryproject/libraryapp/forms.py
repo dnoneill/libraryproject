@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 
 
 class BookForm(forms.Form):
-	class Meta:
-		model = Book
-		fields = '__all__'
+	choices = User.objects.values_list('id', 'username')
+	borrowed_from = forms.ChoiceField(choices=choices)
+	borrower = forms.ChoiceField(choices=choices)
 class LoansForm(forms.Form):
 	choices = User.objects.values_list('id', 'username')
 	borrowed_from = forms.ChoiceField(choices=choices)
