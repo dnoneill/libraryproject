@@ -165,18 +165,35 @@ class BookList(ListView):
     model = Book
     ordering = ['-author']
 
-class BookDetail(DetailView):
+class BookDetail(FormMixin, DetailView):
     model = Book
+    form_class = BookForm
     def get_context_data(self, **kwargs):
         context = super(BookDetail, self).get_context_data(**kwargs)
+        context['form'] = self.get_form()
         context['loans'] = self.object.loans.all()
         return context
-    
+        
+    @method_decorator(permission_required('libraryapp.borrow_book'))
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            loan = Loans()
+            borrower = User.objects.get(id=form.cleaned_data['borrower'])
+            borrowed_from = User.objects.get(id=form.cleaned_data['borrowed_from'])
+            loan.borrower = borrower
+            loan.borrowed_from = borrowed_from
+            book_id = self.kwargs['pk']
+            book = Book.objects.get(id=book_id)
+            loan.book = book
+            loan.save()
+        return HttpResponseRedirect("/loans")
+        
 class LoansDetail(DetailView):
     model = Loans
     ordering = ['date_created']
     
-    @method_decorator(permission_required('libraryapp.return_loan'))
+    @method_decorator(permission_required('libraryapp.delete_book'))
     def post(self, request, *args, **kwargs):
         loans = self.get_object()
         request.session['deleted_loans'] = '"{}" ({})'.format(loans.borrower, loans.id)
@@ -194,7 +211,7 @@ class AuthorDetail(DetailView):
 class AuthorList(ListView):
     model = Author
     ordering = ['author']
-	
+
     
 class UserDetail(DetailView):
     model = User
