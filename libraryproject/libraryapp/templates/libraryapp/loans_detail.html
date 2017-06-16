@@ -7,6 +7,12 @@
 <div class="container">
   <div class="jumbotron">
     <h1><img src="{{loans.book.small_image_url}}"/>{{loans.book.title}}</h1>
+     {% if perms.libraryapp.can_delete_book %}
+    {% include "libraryapp/loan-return-modal.html" %}
+      <div class="col-md-12">
+        <button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="modal" data-target="#loan-return-modal">Return Book</button>
+      </div>
+  {% endif %}
   </div>
   <div class="row">
     
@@ -14,6 +20,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">Details</div>
         <div class="panel-body">
+       
           <dl class="dl-horizontal">
           	<dt>Lender</dt>
             <dd><td><a href="/user/{{loans.borrowed_from.id}}">{{loans.borrowed_from}}</a></td></dd>
@@ -57,4 +64,28 @@
         </div>
       </div>
     </div>
+    <script>
+    $('#delete').submit(function(e) {
+      e.preventDefault();
+      $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+          if(!this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+          }
+        }
+      });
+      $.ajax({
+        type: 'DELETE',
+        url: '/loans/{{loans.id}}',
+        success: function() {
+          window.location.href = '/loans/'
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log(errorThrown);
+          console.log(textStatus);
+          window.location.href = '/login/'
+        }
+      });
+    });
+  </script>
 {% endblock %}
