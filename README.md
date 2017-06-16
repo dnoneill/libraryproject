@@ -31,7 +31,7 @@ Developer Installation
         (ENV)$ pip install -r requirements.txt
         
 4.5 Migrate models if necessary
-
+        
         (ENV)$ cd libraryproject
         (ENV)$ python manage.py makemigrations
         (ENV)$ python manage.py migrate
