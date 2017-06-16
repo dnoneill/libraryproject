@@ -2,15 +2,17 @@
 
 {% load staticfiles %}
 
+{% block title %}Loans List {% endblock %}
 {% block content %}
-{% block title %}Loans List {%endblock%}
-{% if perms.collection.add_book %}
+
+   <div class="container">
+       
+       <table class="table">
+    	{% if perms.collection.add_book %}
                 <button type="button" class="btn btn-primary navbar-btn pull-right" data-toggle="modal" data-target="#loans-form-modal">New Loan</button>
                 {% include "libraryapp/loans-form-modal.html" %}
             {% endif %}
-   <div class="container">
-    <h1> Loans </h1>   
-    <table class="table">
+            <h1>Loans</h1>   
       <tr>
       	<th></th>
         <th>Title</th>

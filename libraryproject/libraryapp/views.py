@@ -175,6 +175,13 @@ class BookDetail(DetailView):
 class LoansDetail(DetailView):
     model = Loans
     ordering = ['date_created']
+    
+    @method_decorator(permission_required('libraryapp.delete_book'))
+    def post(self, request, *args, **kwargs):
+        loans = self.get_object()
+        request.session['deleted_loans'] = '"{}" ({})'.format(loans.borrower, loans.id)
+        loans.delete()
+        return HttpResponseRedirect("/loans")
 
 class AuthorDetail(DetailView):
     model = Author

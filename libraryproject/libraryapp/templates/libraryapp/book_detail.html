@@ -12,17 +12,15 @@
     
     <div class="col-md-6">
       <div class="panel panel-default">
-        <div class="panel-heading">Details</div>
+        <div class="panel-heading">Details 
+        {% for loan in loans %}
+    <input class="pull-right" type="button" onclick="window.location = '/loans/{{loan.id}}';" value="Loaned"></input>
+    {% endfor %}  </div>
         <div class="panel-body">
           <dl class="dl-horizontal">
 
             <dt>Author</dt>
             <dd><a href="/author/{{book.author.id}}">{{book.author.author}}</a></dd>
-            
-            <dt>Loans</dt>
-            {% for loan in loans %}
-            <dd> <a href = "/loans/{{loan.id}}">Loaned</a> </dd>
-            {% endfor %}
             
             <dt>Author Page</dt>
             <dd><a href = "http://www.goodreads.com/author/show/{{book.author.id}}" target=_blank>http://www.goodreads.com/author/show/{{book.author.id}}</a><dd>
