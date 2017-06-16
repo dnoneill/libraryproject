@@ -176,7 +176,7 @@ class LoansDetail(DetailView):
     model = Loans
     ordering = ['date_created']
     
-    @method_decorator(permission_required('libraryapp.delete_book'))
+    @method_decorator(permission_required('libraryapp.return_loan'))
     def post(self, request, *args, **kwargs):
         loans = self.get_object()
         request.session['deleted_loans'] = '"{}" ({})'.format(loans.borrower, loans.id)
@@ -194,7 +194,7 @@ class AuthorDetail(DetailView):
 class AuthorList(ListView):
     model = Author
     ordering = ['author']
-
+	
     
 class UserDetail(DetailView):
     model = User

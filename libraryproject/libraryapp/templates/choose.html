@@ -1,6 +1,7 @@
 {% extends 'libraryapp/base.html' %}
 
 {% load staticfiles %}
+{% block title %}{{ request.GET.q }} | Search{% endblock %}
 {% block content %}
 <html>
 <div class="container">
@@ -10,7 +11,7 @@
   <input type="text" name="q" value="">
   <input type="submit" value="Submit">
 </form> 
-{% block title %}{{ request.GET.q }} | Search{% endblock %}
+<br>
 {{no_results}}
 {% for choice in choices %}
 <table>

@@ -71,13 +71,13 @@
                 {% block userlinks %}
                   {% if user.is_authenticated %}
                     <li>
-                      <a href="/logout">
+                      <a href="/logout?next={{request.path}}">
                         {{user}} - Log out
                       </a>
                     </li>
                   {% else %}
                     <li>
-                      <a href="/login">Log in</a>
+                      <a href="/login?next={{request.path}}">Log in</a>
                     </li>
                   {% endif %}
                 {% endblock %}
