@@ -9,7 +9,14 @@
     <h1><img src="{{book.small_image_url}}"/>{{book.title}}</h1>
   </div>
   <div class="row">
-    
+
+  {% if loans|length == 0 %}
+    {% include "libraryapp/book-borrow-modal.html" %}
+      <div class="col-md-12">
+      <button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="modal" data-target="#book-borrow-modal">Borrow Book</button>
+      </div>
+    {% endif %}
+
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">Details 
